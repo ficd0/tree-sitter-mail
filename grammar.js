@@ -12,6 +12,7 @@ const SPECIAL = /[()<>@,;:\\".\[\]]/
 const CTL = /[\x00-\x1f\x7f]/
 const NEWLINE = /\r?\n/
 const SIGSEP = /-- \r?\n/
+const MULTILINE_HEADER = /(?:.*|.+(?:\r?\n[ \t]+.+)*)/
 const EMAIL = /(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-zA-Z0-9-]*[a-zA-Z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
 
 export default grammar({
@@ -38,9 +39,8 @@ export default grammar({
     header_field: (_$) => new RegExp(`[^${CTL.source.slice(1, -1)}\\s:]+`),
     header_field_email: (_$) => choice('From', 'To', 'Cc', 'Bcc', 'Reply-To'),
     header_field_subject: (_$) => 'Subject',
-    header_unstructured: (_$) => /.*/,
-    subject: (_$) => /.*/,
-
+    header_unstructured: (_$) => MULTILINE_HEADER,
+    subject: (_$) => MULTILINE_HEADER,
     atom_block: ($) => repeat1(choice($.atom, $.quoted_string)),
     atom: (_$) => new RegExp(`[^${SPECIAL.source.slice(1, -1)}\\s${CTL.source.slice(1, -1)}]+`),
     quoted_string: (_$) => /"[^"\\\n]+"/,

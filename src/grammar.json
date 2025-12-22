@@ -260,11 +260,11 @@
     },
     "header_unstructured": {
       "type": "PATTERN",
-      "value": ".*"
+      "value": "(?:.*|.+(?:\\r?\\n[ \\t]+.+)*)"
     },
     "subject": {
       "type": "PATTERN",
-      "value": ".*"
+      "value": "(?:.*|.+(?:\\r?\\n[ \\t]+.+)*)"
     },
     "atom_block": {
       "type": "REPEAT1",
