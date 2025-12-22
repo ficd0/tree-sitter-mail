@@ -39,6 +39,26 @@ valid text object unless it was followed by a newline. This is why `quote_group`
 exists. I know it's redundant, but I couldn't get this working in Helix
 otherwise.
 
+### Neovim
+
+To use in Neovim, the following needs to be added to e.g.
+`$rumtime/after/ftplugin/mail.lua`:
+
+```lua
+vim.api.nvim_create_autocmd("User", {
+  pattern = "TSUpdate",
+  callback = function()
+    require("nvim-treesitter.parsers").mail = {
+      install_info = {
+        url = "https://codeberg.org/ficd/tree-sitter-mail",
+        branch = "master",
+        queries = "queries/mail",
+      },
+    }
+  end,
+})
+```
+
 # Contributions
 
 More than welcome. Please contribute. I am going clinically insane.
