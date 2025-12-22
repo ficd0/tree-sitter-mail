@@ -2,9 +2,13 @@
 
 ## Point Of This Fork
 
-I created this fork mainly to add `.eml` support to Helix. However, the original grammar is a bit lacking so I've also decided to expand it a bit, to support things like unique highlighting for quoted replies in the body text.
+I created this fork mainly to add `.eml` support to Helix. However, the original
+grammar is a bit lacking so I've also decided to expand it a bit, to support
+things like unique highlighting for quoted replies in the body text.
 
-Although at the time of forking, the grammar was using ABI 14, tree-sitter's default is 15. So, I decided it would be better for me to maintain an ABI 14 version of the grammar which we can be confident won't be upgraded.
+Although at the time of forking, the grammar was using ABI 14, tree-sitter's
+default is 15. So, I decided it would be better for me to maintain an ABI 14
+version of the grammar which we can be confident won't be upgraded.
 
 ## Improvements Over Original
 
@@ -15,7 +19,8 @@ Although at the time of forking, the grammar was using ABI 14, tree-sitter's def
 - Added rules for quoted blocks.
   - Quoted blocks are used in reply emails.
   - Users may want to highlight these differently.
-  - This also opens the door to text object queries for easily operating on quote blocks.
+  - This also opens the door to text object queries for easily operating on
+    quote blocks.
 - Added distinction between email address delimiter and address.
 - Improved error detection on malformed headers.
 - Added highlight queries (for Helix).
@@ -29,7 +34,10 @@ Although at the time of forking, the grammar was using ABI 14, tree-sitter's def
 
 ### Workarounds
 
-For some reason, Helix was refusing to treat the last node in the file as a valid text object unless it was followed by a newline. This is why `quote_group` exists. I know it's redundant, but I couldn't get this working in Helix otherwise.
+For some reason, Helix was refusing to treat the last node in the file as a
+valid text object unless it was followed by a newline. This is why `quote_group`
+exists. I know it's redundant, but I couldn't get this working in Helix
+otherwise.
 
 # Contributions
 
