@@ -24,3 +24,5 @@
 (quote_marker) @punctuation.special
 (quote_contents) @markup.quote
 
+(body_signature_separator) @punctuation.special
+(body_signature) @comment

@@ -8,6 +8,7 @@
 (quoted_block)+ @comment.around
 
 (body_block)+ @function.around
+(body_signature)+ @function.around
 
 (header_subject
   (subject) @function.around)

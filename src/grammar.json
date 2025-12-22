@@ -330,41 +330,87 @@
         }
       ]
     },
-    "body_separator": {
+    "body_signature_separator": {
       "type": "PATTERN",
-      "value": "\\r?\\n"
+      "value": "-- \\r?\\n"
     },
-    "body": {
+    "body_signature": {
       "type": "REPEAT1",
       "content": {
         "type": "CHOICE",
         "members": [
           {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "SYMBOL",
-              "name": "_empty_line"
-            }
+            "type": "SYMBOL",
+            "name": "_empty_line"
           },
           {
-            "type": "PREC",
-            "value": 2,
-            "content": {
-              "type": "SYMBOL",
-              "name": "quote_group"
-            }
-          },
-          {
-            "type": "PREC",
-            "value": 1,
-            "content": {
-              "type": "SYMBOL",
-              "name": "body_block"
-            }
+            "type": "SYMBOL",
+            "name": "_body_line"
           }
         ]
       }
+    },
+    "body_separator": {
+      "type": "PATTERN",
+      "value": "\\r?\\n"
+    },
+    "body": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PREC",
+                "value": 3,
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_empty_line"
+                }
+              },
+              {
+                "type": "PREC",
+                "value": 2,
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "quote_group"
+                }
+              },
+              {
+                "type": "PREC",
+                "value": 1,
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "body_block"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "body_signature_separator"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "body_signature"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "quote_group": {
       "type": "PREC_RIGHT",

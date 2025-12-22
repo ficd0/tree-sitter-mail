@@ -32,3 +32,35 @@ Hello world
   (body_separator)
   (body
     (body_block)))
+
+
+===
+signature
+===
+From: name1 <user1@example.com>
+
+Hello world
+
+-- 
+The signature
+
+With multiple lines
+
+---
+
+(source_file
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (atom_block
+      (atom))
+    (email
+      (email_delimiter)
+      (email_address)
+      (email_delimiter)))
+      
+  (body_separator)
+  (body
+    (body_block)
+    (body_signature_separator)
+    (body_signature)))

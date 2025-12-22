@@ -31,6 +31,14 @@
           "named": true
         },
         {
+          "type": "body_signature",
+          "named": true
+        },
+        {
+          "type": "body_signature_separator",
+          "named": true
+        },
+        {
           "type": "quote_group",
           "named": true
         }
@@ -44,6 +52,11 @@
   },
   {
     "type": "body_separator",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "body_signature",
     "named": true,
     "fields": {}
   },
@@ -269,6 +282,10 @@
   },
   {
     "type": "atom",
+    "named": true
+  },
+  {
+    "type": "body_signature_separator",
     "named": true
   },
   {
