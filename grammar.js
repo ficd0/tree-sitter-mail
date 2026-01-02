@@ -19,6 +19,9 @@ const SIGSEP = /-- \r?\n/
 const MULTILINE_HEADER = /(?:.*|.+(?:\r?\n[ \t]+.+)*)/
 // email adress
 const EMAIL = /(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-zA-Z0-9-]*[a-zA-Z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+// Folding spaces allow to break headers into multiple lines. They are made of
+// maybe some spaces or tabs followed by a new indented line.
+const FOLDING = /[ \t]*\r?\n[ \t]+/
 
 export default grammar({
   name: 'mail',
@@ -34,9 +37,16 @@ export default grammar({
       seq($.header_field_email,
         $.header_separator,
         choice(
-          seq(token(' '), choice(seq($.atom_block, $.email), $.email, $.atom_block, $.email_address)),
+          seq(token(' '), seq($.mailbox, repeat(seq($.mailbox_sep, $.mailbox)))),
           optional(token(' ')),
         )),
+    // mailbox can be a display name followed by an email address between angle
+    // brackets, or an email address alone, or a display name alone (this is not
+    // allowed in RFC 5322 but can be useful after post-processing, for instance
+    // it could be a mutt alias), or an email address between angle brackets.
+    mailbox: ($) => choice(seq($.atom_block, $.email), $.email, $.atom_block, $.email_address),
+    // separator between two mailboxes
+    mailbox_sep: ($) => prec.right(seq(",", optional(FOLDING))),
     header_other: ($) => seq($.header_field, $.header_separator, choice(optional(token(' ')), seq(token(' '), $.header_unstructured))),
     header_subject: ($) => seq($.header_field_subject, $.header_separator, token(' '), $.subject),
 
@@ -46,7 +56,9 @@ export default grammar({
     header_field_subject: (_$) => 'Subject',
     header_unstructured: (_$) => MULTILINE_HEADER,
     subject: (_$) => MULTILINE_HEADER,
-    atom_block: ($) => repeat1(choice($.atom, $.quoted_string)),
+    // a nonempty sequence of atoms or quoted strings separated by spaces or
+    // folding, optionaly followed by folding.
+    atom_block: ($) => prec.left(seq(repeat1(choice($.atom, $.quoted_string, seq(FOLDING, choice($.atom, $.quoted_string)))), optional(FOLDING))),
     atom: (_$) => new RegExp(`[^${SPECIAL.source.slice(1, -1)}\\s${CTL.source.slice(1, -1)}]+`),
     quoted_string: (_$) => /"[^"\\\n]+"/,
     email_delimiter: (_$) => choice(token('>'), token('<')),

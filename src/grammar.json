@@ -98,32 +98,27 @@
                   }
                 },
                 {
-                  "type": "CHOICE",
+                  "type": "SEQ",
                   "members": [
                     {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "atom_block"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "email"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "mailbox"
                     },
                     {
-                      "type": "SYMBOL",
-                      "name": "email"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "atom_block"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "email_address"
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "mailbox_sep"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "mailbox"
+                          }
+                        ]
+                      }
                     }
                   ]
                 }
@@ -147,6 +142,61 @@
           ]
         }
       ]
+    },
+    "mailbox": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "atom_block"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "email"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "email"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "atom_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "email_address"
+        }
+      ]
+    },
+    "mailbox_sep": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": ","
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[ \\t]*\\r?\\n[ \\t]+"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "header_other": {
       "type": "SEQ",
@@ -267,17 +317,60 @@
       "value": "(?:.*|.+(?:\\r?\\n[ \\t]+.+)*)"
     },
     "atom_block": {
-      "type": "REPEAT1",
+      "type": "PREC_LEFT",
+      "value": 0,
       "content": {
-        "type": "CHOICE",
+        "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "atom"
+            "type": "REPEAT1",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "atom"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "quoted_string"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "[ \\t]*\\r?\\n[ \\t]+"
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "atom"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "quoted_string"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
           },
           {
-            "type": "SYMBOL",
-            "name": "quoted_string"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[ \\t]*\\r?\\n[ \\t]+"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }

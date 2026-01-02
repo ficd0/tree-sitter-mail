@@ -15,21 +15,23 @@ Hello world
   (header_email
     (header_field_email)
     (header_separator)
-    (atom_block
-      (atom))
-    (email
-      (email_delimiter)
-      (email_address)
-      (email_delimiter)))
+    (mailbox
+      (atom_block
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter))))
   (header_email
     (header_field_email)
     (header_separator)
-    (atom_block
-      (atom))
-    (email
-      (email_delimiter)
-      (email_address)
-      (email_delimiter)))
+    (mailbox
+      (atom_block
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter))))
   (body_separator)
   (body
 	(body_block)

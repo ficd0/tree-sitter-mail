@@ -10,24 +10,26 @@ To: name1 "name <>" name3 <user2@example.com>
   (header_email
     (header_field_email)
     (header_separator)
-    (atom_block
-      (atom)
-      (atom))
-    (email
-      (email_delimiter)
-      (email_address)
-      (email_delimiter)))
+    (mailbox
+      (atom_block
+        (atom)
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter))))
   (header_email
     (header_field_email)
     (header_separator)
-    (atom_block
-      (atom)
-      (quoted_string)
-      (atom))
-    (email
-      (email_delimiter)
-      (email_address)
-      (email_delimiter))))
+    (mailbox
+      (atom_block
+        (atom)
+        (quoted_string)
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter)))))
 
 ===
 header-empty
@@ -52,8 +54,9 @@ From: name1
   (header_email
     (header_field_email)
     (header_separator)
-    (atom_block
-      (atom))))
+    (mailbox
+      (atom_block
+        (atom)))))
 
       
 ===
@@ -67,7 +70,8 @@ From: person@test.com
   (header_email
     (header_field_email)
     (header_separator)
-    (email_address)))
+    (mailbox
+      (email_address))))
 
 ===
 header-email-capitalized
@@ -80,7 +84,8 @@ From: PERSON@TEST.COM
   (header_email
     (header_field_email)
     (header_separator)
-    (email_address)))
+    (mailbox
+      (email_address))))
 
 ===
 header-subject
@@ -168,3 +173,134 @@ And then the body
   (body_separator)
   (body
     (body_block)))
+
+===
+header-to-multiline
+===
+From: me@bar.com
+To: "Mr Baz" <baz@yo.com>, 
+  foo@yi.com, Other person <other@person.fr>
+Cc:
+
+---
+
+(source_file
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (mailbox
+      (email_address)))
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (mailbox
+      (atom_block
+        (quoted_string))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter)))
+    (mailbox_sep)
+    (mailbox
+      (email_address))
+    (mailbox_sep)
+    (mailbox
+      (atom_block
+        (atom)
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter))))
+  (header_email
+    (header_field_email)
+    (header_separator)))
+
+===
+header-to-more-multiline-tab
+===
+From: me@bar.com
+To: "Mr Baz" <baz@yo.com>, 
+  foo@yi.com, 
+  Other person <other@person.fr>
+Cc:
+
+---
+
+(source_file
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (mailbox
+      (email_address)))
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (mailbox
+      (atom_block
+        (quoted_string))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter)))
+    (mailbox_sep)
+    (mailbox
+      (email_address))
+    (mailbox_sep)
+    (mailbox
+      (atom_block
+        (atom)
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter))))
+  (header_email
+    (header_field_email)
+    (header_separator)))
+
+===
+header-to-lot-of-multiline
+===
+From: me@bar.com
+To: 
+ "Mr Baz" 
+  <baz@yo.com>, 
+  foo@yi.com, 
+  Other 
+    person <other@person.fr>
+Cc:
+
+---
+
+(source_file
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (mailbox
+      (email_address)))
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (mailbox
+      (atom_block
+        (quoted_string))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter)))
+    (mailbox_sep)
+    (mailbox
+      (email_address))
+    (mailbox_sep)
+    (mailbox
+      (atom_block
+        (atom)
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter))))
+  (header_email
+    (header_field_email)
+    (header_separator)))

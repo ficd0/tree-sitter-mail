@@ -93,23 +93,19 @@
       "required": true,
       "types": [
         {
-          "type": "atom_block",
-          "named": true
-        },
-        {
-          "type": "email",
-          "named": true
-        },
-        {
-          "type": "email_address",
-          "named": true
-        },
-        {
           "type": "header_field_email",
           "named": true
         },
         {
           "type": "header_separator",
+          "named": true
+        },
+        {
+          "type": "mailbox",
+          "named": true
+        },
+        {
+          "type": "mailbox_sep",
           "named": true
         }
       ]
@@ -168,6 +164,34 @@
   },
   {
     "type": "header_unstructured",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "mailbox",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "atom_block",
+          "named": true
+        },
+        {
+          "type": "email",
+          "named": true
+        },
+        {
+          "type": "email_address",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mailbox_sep",
     "named": true,
     "fields": {}
   },
@@ -251,6 +275,10 @@
     "type": " ",
     "named": false,
     "extra": true
+  },
+  {
+    "type": ",",
+    "named": false
   },
   {
     "type": "<",
