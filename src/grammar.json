@@ -431,8 +431,25 @@
           "name": "quote_marker"
         },
         {
-          "type": "SYMBOL",
-          "name": "quote_contents"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "quoted_block"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "quote_contents"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -452,15 +469,15 @@
     "quote_marker": {
       "type": "TOKEN",
       "content": {
-        "type": "STRING",
-        "value": ">"
+        "type": "PATTERN",
+        "value": "> ?"
       }
     },
     "quote_contents": {
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "[^\\r\\n]*"
+        "value": "[^\\r\\n>][^\\r\\n]*"
       }
     },
     "body_block": {
