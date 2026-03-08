@@ -34,7 +34,7 @@ Hello world
         (email_delimiter))))
   (body_separator)
   (body
-	(body_block)
+    (body_block)
     (quote_group
       (quoted_block
         (quote_marker)
@@ -42,3 +42,172 @@ Hello world
       (quoted_block
         (quote_marker)
         (quote_contents)))))
+
+===
+empty quote
+===
+From: a <a@a.com>
+
+>
+
+---
+
+(source_file
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (atom_block
+      (atom))
+    (email
+      (email_delimiter)
+      (email_address)
+      (email_delimiter)))
+  (body_separator)
+  (body
+    (quote_group
+      (quoted_block
+        (quote_marker)))))
+
+===
+nested quote
+===
+From: a <a@a.com>
+
+>> deeply nested
+
+---
+
+(source_file
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (atom_block
+      (atom))
+    (email
+      (email_delimiter)
+      (email_address)
+      (email_delimiter)))
+  (body_separator)
+  (body
+    (quote_group
+      (quoted_block
+        (quote_marker)
+        (quoted_block
+          (quote_marker)
+          (quote_contents))))))
+
+===
+nested quote with space
+===
+From: a <a@a.com>
+
+> > spaced nested
+
+---
+
+(source_file
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (atom_block
+      (atom))
+    (email
+      (email_delimiter)
+      (email_address)
+      (email_delimiter)))
+  (body_separator)
+  (body
+    (quote_group
+      (quoted_block
+        (quote_marker)
+        (quoted_block
+          (quote_marker)
+          (quote_contents))))))
+
+===
+triple nested quote
+===
+From: a <a@a.com>
+
+>>> triple
+
+---
+
+(source_file
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (atom_block
+      (atom))
+    (email
+      (email_delimiter)
+      (email_address)
+      (email_delimiter)))
+  (body_separator)
+  (body
+    (quote_group
+      (quoted_block
+        (quote_marker)
+        (quoted_block
+          (quote_marker)
+          (quoted_block
+            (quote_marker)
+            (quote_contents)))))))
+
+===
+multiple nested quote groups
+===
+From: a <a@a.com>
+
+> > > foo
+> > bar
+> baz
+
+qux
+
+> > 1
+> 2
+
+3
+
+---
+
+(source_file
+  (header_email
+    (header_field_email)
+    (header_separator)
+    (atom_block
+      (atom))
+    (email
+      (email_delimiter)
+      (email_address)
+      (email_delimiter)))
+  (body_separator)
+  (body
+    (quote_group
+      (quoted_block
+        (quote_marker)
+        (quoted_block
+          (quote_marker)
+          (quoted_block
+            (quote_marker)
+            (quote_contents))))
+      (quoted_block
+        (quote_marker)
+        (quoted_block
+          (quote_marker)
+          (quote_contents)))
+      (quoted_block
+        (quote_marker)
+        (quote_contents)))
+    (body_block)
+    (quote_group
+      (quoted_block
+        (quote_marker)
+        (quoted_block
+          (quote_marker)
+          (quote_contents)))
+      (quoted_block
+        (quote_marker)
+        (quote_contents)))
+    (body_block)))

@@ -88,15 +88,18 @@ export default grammar({
     quote_group: ($) => prec.right(repeat1($._quoted_line)),
     quoted_block: ($) => seq(
       $.quote_marker,
-      $.quote_contents
+      choice(
+        $.quoted_block,
+        optional($.quote_contents),
+      ),
     ),
     _quoted_line: ($) =>
       seq(
         $.quoted_block,
         NEWLINE,
       ),
-    quote_marker: (_$) => token('>'),
-    quote_contents: (_$) => token(/[^\r\n]*/),
+    quote_marker: (_$) => token(/> ?/),
+    quote_contents: (_$) => token(/[^\r\n>][^\r\n]*/),
     body_block: ($) => prec.right(repeat1($._body_line)),
     _body_line: (_$) => seq(/[^\r\n>].*/, NEWLINE),
     _empty_line: (_$) => NEWLINE,

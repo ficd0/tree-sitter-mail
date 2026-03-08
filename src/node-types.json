@@ -211,11 +211,6 @@
     }
   },
   {
-    "type": "quote_marker",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "quoted_block",
     "named": true,
     "fields": {},
@@ -229,6 +224,10 @@
         },
         {
           "type": "quote_marker",
+          "named": true
+        },
+        {
+          "type": "quoted_block",
           "named": true
         }
       ]
@@ -334,6 +333,10 @@
   },
   {
     "type": "quote_contents",
+    "named": true
+  },
+  {
+    "type": "quote_marker",
     "named": true
   },
   {
