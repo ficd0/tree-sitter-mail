@@ -1,5 +1,10 @@
 # Tree-sitter Grammar for Mail
 
+> [!NOTE]
+> I no longer use Helix, so I'm not using this grammar often enough to find
+> issues or work on it. If you are interested in taking over the project, please
+> reach out to me.
+
 ## Point Of This Fork
 
 I created this fork mainly to add `.eml` support to Helix. However, the original
