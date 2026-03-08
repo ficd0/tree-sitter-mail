@@ -56,12 +56,13 @@ From: a <a@a.com>
   (header_email
     (header_field_email)
     (header_separator)
-    (atom_block
-      (atom))
-    (email
-      (email_delimiter)
-      (email_address)
-      (email_delimiter)))
+    (mailbox
+      (atom_block
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter))))
   (body_separator)
   (body
     (quote_group
@@ -81,12 +82,13 @@ From: a <a@a.com>
   (header_email
     (header_field_email)
     (header_separator)
-    (atom_block
-      (atom))
-    (email
-      (email_delimiter)
-      (email_address)
-      (email_delimiter)))
+    (mailbox
+      (atom_block
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter))))
   (body_separator)
   (body
     (quote_group
@@ -109,12 +111,13 @@ From: a <a@a.com>
   (header_email
     (header_field_email)
     (header_separator)
-    (atom_block
-      (atom))
-    (email
-      (email_delimiter)
-      (email_address)
-      (email_delimiter)))
+    (mailbox
+      (atom_block
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter))))
   (body_separator)
   (body
     (quote_group
@@ -137,12 +140,13 @@ From: a <a@a.com>
   (header_email
     (header_field_email)
     (header_separator)
-    (atom_block
-      (atom))
-    (email
-      (email_delimiter)
-      (email_address)
-      (email_delimiter)))
+    (mailbox
+      (atom_block
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter))))
   (body_separator)
   (body
     (quote_group
@@ -176,12 +180,13 @@ qux
   (header_email
     (header_field_email)
     (header_separator)
-    (atom_block
-      (atom))
-    (email
-      (email_delimiter)
-      (email_address)
-      (email_delimiter)))
+    (mailbox
+      (atom_block
+        (atom))
+      (email
+        (email_delimiter)
+        (email_address)
+        (email_delimiter))))
   (body_separator)
   (body
     (quote_group
